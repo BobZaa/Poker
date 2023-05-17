@@ -1,0 +1,22 @@
+{% extends "template/base.njk" %}
+
+    {% block head %}       
+    <title>hello 没有 那么😀</title>
+    {% endblock %}
+<body>
+    {% block main %}   
+    <div class="box">  
+        <h1>Texas Hold 'Em</h1>
+        <div> 
+            <form action="/play" method="POST">
+                <textarea name="Player1" id="Player1" cols="30" rows="10"></textarea>
+                <textarea name="Player2" id="Player2" cols="30" rows="10"></textarea>
+            <div class="button">  
+                <button type="submit">PLAY</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

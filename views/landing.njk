@@ -1,0 +1,19 @@
+{% extends "template/base.njk" %}
+
+<body>
+    {% block main %}
+        <div class="box">
+            <h1>Cards</h1>
+            <div>
+                <form action="/play" method="POST" id="vadduvill">
+                    <textarea name="player1" id="player1" cols="30" rows="10" form="vadduvill"></textarea>
+                    <textarea name="player2" id="player2" cols="30" rows="10"></textarea>
+                    <div class="button">
+                        <button type="submit" id="submit">PLAY</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>

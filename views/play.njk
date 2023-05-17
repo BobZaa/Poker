@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script ></script>
+        <title>Game</title>
+    </head>
+    <body>
+
+        {% if showPlayer1Cards %}
+            <img src={{image1}}>
+            <h1>First player: {{player1}}</h1>
+        {% else %}
+            <img src={{image2}}>
+            <h1>Second Player: {{player2}}</h1>
+        {% endif %}
+
+        <form action="/new-card-to-player" method="POST">
+            <div class="button">
+                <button type="submit">NEW CARD</button>
+            </div>
+        </form>
+
+        <form action="/end-turn-for-player" method="POST">
+            <div class="button">
+                <button type="submit">END TURN</button>
+            </div>
+        </form>
+
+        <img src={{image}}>
+        <h1>{{player}}</h1>
+        <p>The winner is {{winner}}</p>
+
+    </body>
+</html>

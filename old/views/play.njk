@@ -1,0 +1,17 @@
+{% extends "template/base.njk" %}
+
+{% block head %}
+    <title>Play!</title>
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="players">
+        {% for player in players %}
+            {{ player }}
+        {% endfor %}
+    </div>
+
+{% endblock %}
+</html>

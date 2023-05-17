@@ -1,0 +1,24 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.box, .button{
+    display: grid;
+    place-items: center;
+    
+}
+
+textarea {
+    resize:none;
+}
+
+.players {  
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    
+}
