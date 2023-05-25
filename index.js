@@ -2,6 +2,7 @@
 import express from "express"
 import njk from "nunjucks"
 import bp from "body-parser"
+import sqlite from "better-sqlite3"
 import { Game, Player } from "./backend/play.js"
 
 const DEBUG = true
@@ -17,6 +18,16 @@ let game
  * @param {T} val Any value.
  * @returns {T}
  */
+
+const db = sqlite("Gamelog.db")
+
+db.prepare(`
+    CREATE TABLE IF NOT EXISTS victories (
+        date TIMESTAMP NOT NULL DEFAULT current_timestamp,
+        player TEXT NOT NULL
+    )
+`).run()
+
 export function debug(val) {
     if (DEBUG) {
         // Får typ av värde
@@ -90,19 +101,21 @@ server.post("/end-turn-for-player", (req, res) => {
         game.translateValue()
         let card1 = game.players[0].card.value 
         let card2 = game.players[1].card.value
+
         if(card1 > card2) {
+            db.prepare("INSERT INTO victories (player) VALUES (?)").run(game.players[0].name)
             return res.render(
                 "play.njk",
                 {
-
                     image: game.players[0].card.image,
                     player: game.players[0].name,
                     winner : game.players[0].name
-                }
+                } 
             )
         }  
         
         if(card1 < card2) {
+            db.prepare("INSERT INTO victories (player) VALUES (?)").run(game.players[1].name)
             return res.render(
                 "play.njk",
                 {
