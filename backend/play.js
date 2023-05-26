@@ -26,12 +26,14 @@ export class Player {
         this.name = name
         this.card = null
         this.turn = false
+        this.cardsLeft = 3
     }
   
     //Funktion inom spelare som gör det möjligt att byta ut spelarens kort
     changeCard(newCard) {
         console.log("changeCard")
         this.card = newCard
+        this.cardsLeft -= 1
     }
 }
 
@@ -47,10 +49,6 @@ export class Game {
         //this.deck    = this.createDeck()
         this.gameID  = 0
         console.log("const 1" + this.deck)
-        //Gör så att programmet går igenom hela indexen av "players" och ger de ett kort
-        /*for (let i in this.players) {
-            this.giveCard(i)
-        }*/
     }
 
     checkPlayerTurn(){

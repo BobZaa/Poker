@@ -82,18 +82,19 @@ server.post("/play", async (req, res) => {
 })
 
 server.post("/new-card-to-player", async (req, res) => {
-    const checkPlayerTurn = game.checkPlayerTurn() 
-    await game.giveCard(checkPlayerTurn)
-    res.render(
-        "play.njk", 
-        {
-            image1: game.players[0].card.image,
-            player1: game.players[0].name,
-            image2: game.players[1].card.image,
-            player2 : game.players[1].name,
-            showPlayer1Cards: game.players[0].turn
-        }
-    )
+    const currentPlayerIndex = game.checkPlayerTurn() 
+    if (game.players[currentPlayerIndex].cardsLeft > 0) {
+        await game.giveCard(currentPlayerIndex)
+        return res.render("play.njk", 
+            {
+                image1: game.players[0].card.image,
+                player1: game.players[0].name,
+                image2: game.players[1].card.image,
+                player2 : game.players[1].name,
+                showPlayer1Cards: game.players[0].turn
+            }
+        )
+    }
 })
 
 server.post("/end-turn-for-player", (req, res) => {
@@ -113,6 +114,7 @@ server.post("/end-turn-for-player", (req, res) => {
                 } 
             )
         }  
+
         
         if(card1 < card2) {
             db.prepare("INSERT INTO victories (player) VALUES (?)").run(game.players[1].name)
@@ -127,6 +129,7 @@ server.post("/end-turn-for-player", (req, res) => {
         }
         
         if(card1 == card2) {
+            db.prepare("INSERT INTO victories (player) VALUES (?)").run("There is no winner")
             return res.render(
                 "play.njk",
                 {
